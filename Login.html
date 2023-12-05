@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(assets/img/profile/login-bg.jpg);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #loginForm h2 {
+            color:#4caf50 ;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            max-width: 100%;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            margin-top: 5px;
+        }
+
+        #registerLink, #forgotPasswordLink {
+            cursor: pointer;
+            color: #45a049;
+            text-decoration: underline;
+            margin-top: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<form id="loginForm">
+    <h2>Login</h2>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="button" onclick="validateLogin()">Login</button>
+    <p class="error" id="loginError"></p>
+
+    <a id="forgotPasswordLink" onclick="showForgotPasswordForm()">Forgot Password?</a>
+    <a id="registerLink" onclick="showRegisterForm()">Register</a>
+</form>
+
+<form id="registerForm" style="display: none;">
+    <h2>Register</h2>
+    <label for="newUsername">Username:</label>
+    <input type="text" id="newUsername" name="newUsername" required>
+
+    <label for="newEmail">Email:</label>
+    <input type="email" id="newEmail" name="newEmail" required>
+
+    <label for="newPassword">Password:</label>
+    <input type="password" id="newPassword" name="newPassword" required>
+
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+    <button type="button" onclick="validateRegistration()">Register</button>
+    <p class="error" id="registrationError"></p>
+</form>
+
+<form id="forgotPasswordForm" style="display: none;">
+    <h2>Forgot Password</h2>
+    <label for="forgotEmail">Email:</label>
+    <input type="email" id="forgotEmail" name="forgotEmail" required>
+
+    <button type="button" onclick="sendPasswordResetEmail()">Send Reset Link</button>
+    <p class="error" id="forgotPasswordError"></p>
+</form>
+
+<script>
+    function validateLogin() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const loginError = document.getElementById('loginError');
+
+        // Basic validation
+        if (username === '' || password === '') {
+            loginError.textContent = 'Username and password are required.';
+        } else {
+            // Assume a successful login for simplicity
+            loginError.textContent = '';
+            window.location.href = 'index.html';
+        }
+    }
+
+    function validateRegistration() {
+        const newUsername = document.getElementById('newUsername').value;
+        const newEmail = document.getElementById('newEmail').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const registrationError = document.getElementById('registrationError');
+
+        // Basic validation
+        if (newUsername === '' || newEmail === '' || newPassword === '' || confirmPassword === '') {
+            registrationError.textContent = 'All fields are required.';
+        } else if (newPassword !== confirmPassword) {
+            registrationError.textContent = 'Passwords do not match.';
+        } else {
+            // Assume a successful registration for simplicity
+            registrationError.textContent = 'Registration successful!';
+            window.location.href = 'index.html';
+        }
+    }
+
+    function showRegisterForm() {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('forgotPasswordForm').style.display = 'none';
+        document.getElementById('registerForm').style.display = 'block';
+    }
+
+    function showForgotPasswordForm() {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('registerForm').style.display = 'none';
+        document.getElementById('forgotPasswordForm').style.display = 'block';
+    }
+
+    function sendPasswordResetEmail() {
+        const forgotEmail = document.getElementById('forgotEmail').value;
+        const forgotPasswordError = document.getElementById('forgotPasswordError');
+
+        // Basic validation
+        if (forgotEmail === '') {
+            forgotPasswordError.textContent = 'Email is required.';
+        } else {
+            // Assume a successful password reset for simplicity
+            forgotPasswordError.textContent = 'Password reset link sent to your email.';
+            // You might want to implement a real password reset functionality here.
+        }
+    }
+</script>
+
+</body>
+</html>
